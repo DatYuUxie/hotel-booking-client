@@ -5,7 +5,7 @@ import { Form, FormControl, Button } from 'react-bootstrap';
 import BookingSummary from './BookingSummary';
 import { bookRoom, getRoomById } from '../utils/ApiFunctions';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useAuth } from '../auth/AuthProvider';
+// import { useAuth } from '../auth/AuthProvider';
 
 const BookingForm = () => {
     const [validated, setValidated] = useState(false);
@@ -17,7 +17,7 @@ const BookingForm = () => {
 
     const [booking, setBooking] = useState({
         guestFullName: '',
-        guestEmail: currentUser,
+        guestEmail: '',
         checkInDate: '',
         checkOutDate: '',
         numOfAdults: '',
@@ -133,7 +133,6 @@ const BookingForm = () => {
                                         value={booking.guestEmail}
                                         placeholder="Enter your email"
                                         onChange={handleInputChange}
-                                        disabled
                                     />
                                     <Form.Control.Feedback type="invalid">
                                         Please enter a valid email address.

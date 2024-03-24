@@ -1,6 +1,6 @@
 body {
   min-height: 100vh;
-  padding-bottom: 50px;
+  /* padding-bottom: 50px; */
 }
 .card {
   opacity: 0.9;
@@ -214,7 +214,7 @@ body {
 }
 
  .footer {
-  position: fixed;
+  /* position: fixed; */
   left: 0;
   bottom: 0;
   width: 100%;
