@@ -86,9 +86,10 @@ export async function bookRoom(roomId, booking) {
 /* This function gets all bookings from the database */
 export async function getAllBookings() {
     try {
-        const result = await api.get('/bookings/all-bookings', {
-            headers: getHeader(),
-        });
+        const result = await api.get('/bookings/all-bookings');
+        // const result = await api.get('/bookings/all-bookings', {
+        //     headers: getHeader(),
+        // });
         return result.data;
     } catch (error) {
         throw new Error(`Error fetching bookings : ${error.message}`);
@@ -118,3 +119,22 @@ export async function cancelBooking(bookingId) {
         throw new Error(`Error cancelling booking :${error.message}`);
     }
 }
+
+
+
+/* This function gets all available rooms from the database with a given date and a room type */
+export async function getAvailableRooms(checkInDate, checkOutDate, roomType) {
+	const result = await api.get(
+		`rooms/available-rooms?checkInDate=${checkInDate}
+		&checkOutDate=${checkOutDate}&roomType=${roomType}`
+	)
+	return result
+}
+
+
+
+
+
+
+
+
