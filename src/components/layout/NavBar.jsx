@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react"
 import { NavLink, Link } from "react-router-dom"
+import Logout from "../auth/Logout"
 
 
 const NavBar = () => {
@@ -13,7 +14,7 @@ const NavBar = () => {
 	const userRole = localStorage.getItem("userRole")
 
 	return (
-		<nav className="navbar navbar-expand-lg bg-body-tertiary px-5 shadow sticky-top">
+		<nav className="navbar navbar-expand-lg bg-body-tertiary px-5 shadow mt-5 sticky-top">
 			<div className="container-fluid">
 				<Link to={"/"} className="navbar-brand">
 					<span className="hotel-color">lakeSide Hotel</span>
@@ -38,11 +39,13 @@ const NavBar = () => {
 							</NavLink>
 						</li>
 
-						<li className="nav-item">
-                            <NavLink className="nav-link" aria-current="page" to={'/admin'}>
-                                Admin
-                            </NavLink>
-                        </li>
+						{isLoggedIn && userRole === "ROLE_ADMIN" && (
+							<li className="nav-item">
+								<NavLink className="nav-link" aria-current="page" to={"/admin"}>
+									Admin
+								</NavLink>
+							</li>
+						)}
 					</ul>
 
 					<ul className="d-flex navbar-nav">
@@ -68,11 +71,7 @@ const NavBar = () => {
 								className={`dropdown-menu ${showAccount ? "show" : ""}`}
 								aria-labelledby="navbarDropdown">
 								{isLoggedIn ? (
-									<li>
-                                    <Link className="dropdown-item" to={"/login"}>
-                                        Login
-                                    </Link>
-                                </li>
+									<Logout />
 								) : (
 									<li>
 										<Link className="dropdown-item" to={"/login"}>

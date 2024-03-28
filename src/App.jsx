@@ -15,32 +15,50 @@ import CheckOut from './components/booking/CheckOut';
 import BookingSuccess from './components/booking/BookingSuccess';
 import Bookings from './components/booking/Bookings';
 import FindBooking from './components/booking/FindBooking';
-
+import Login from './components/auth/Login';
+import Registration from './components/auth/Registration';
+import Profile from './components/auth/Profile';
+import { AuthProvider } from "./components/auth/AuthProvider"
+import RequireAuth from "./components/auth/RequireAuth"
 
 function App() {
-    return (
-        <>
-            <main>
-                <Router>
-                    <NavBar />
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/edit-room/:roomId" element={<EditRoom />} />
-                        <Route path="/existing-rooms" element={<ExistingRooms />} />
-                        <Route path="/add-room" element={<AddRoom />} />
-                        <Route path="/browse-all-rooms" element={<RoomListing />} />
-                        <Route path="/admin" element={<Admin />} />
-                        <Route path="/book-room/:roomId" element={<CheckOut />} />
-                        <Route path="/booking-success" element={<BookingSuccess />} />
-                        <Route path="/existing-bookings" element={<Bookings />} />
-                        <Route path="/find-booking" element={<FindBooking />} />
+	return (
+		<AuthProvider>
+			<main>
+				<Router>
+					<NavBar />
+					<Routes>
+						<Route path="/" element={<Home />} />
+						<Route path="/edit-room/:roomId" element={<EditRoom />} />
+						<Route path="/existing-rooms" element={<ExistingRooms />} />
+						<Route path="/add-room" element={<AddRoom />} />
 
-                    </Routes>
-                    <Footer />
-                </Router>
-            </main>
-        </>
-    );
+						<Route
+							path="/book-room/:roomId"
+							element={
+								<RequireAuth>
+									<CheckOut />
+								</RequireAuth>
+							}
+						/>
+						<Route path="/browse-all-rooms" element={<RoomListing />} />
+
+						<Route path="/admin" element={<Admin />} />
+						<Route path="/booking-success" element={<BookingSuccess />} />
+						<Route path="/existing-bookings" element={<Bookings />} />
+						<Route path="/find-booking" element={<FindBooking />} />
+
+						<Route path="/login" element={<Login />} />
+						<Route path="/register" element={<Registration />} />
+
+						<Route path="/profile" element={<Profile />} />
+						<Route path="/logout" element={<FindBooking />} />
+					</Routes>
+				</Router>
+				<Footer />
+			</main>
+		</AuthProvider>
+	)
 }
 
-export default App;
+export default App
