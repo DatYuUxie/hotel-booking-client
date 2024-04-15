@@ -28,7 +28,7 @@ const BookingSummary = ({ booking, payment, isFormValid, onConfirm }) => {
 
     return (
         <div className="row">
-            <div className="col-md-6"></div>
+            <div className="col-md-12">
             <div className="card card-body mt-5">
                 <h4 className="card-title hotel-color">Reservation Summary</h4>
                 <p>
@@ -89,6 +89,7 @@ const BookingSummary = ({ booking, payment, isFormValid, onConfirm }) => {
                 ) : (
                     <p className="text-danger">Check-out date must be after check-in date.</p>
                 )}
+            </div>
             </div>
         </div>
     );

@@ -3,7 +3,7 @@ import moment from "moment"
 import { useState } from "react"
 import { Form, FormControl, Button } from "react-bootstrap"
 import BookingSummary from "./BookingSummary"
-import { bookRoom, getRoomById } from "../utils/ApiFunctions"
+import { bookRoom, getRoomById, getPayment } from "../utils/ApiFunctions"
 import { useNavigate, useParams } from "react-router-dom"
 import { useAuth } from "../auth/AuthProvider"
 
@@ -86,6 +86,11 @@ const currentUser = localStorage.getItem("userId")
 	const handleFormSubmit = async () => {
 		try {
 			const confirmationCode = await bookRoom(roomId, booking)
+			const amount = calculatePayment()
+			console.log("amount",amount);
+			const paymentAction = await getPayment(amount)
+			window.location.href = paymentAction.url;
+			console.log("paymant",paymentAction);
 			setIsSubmitted(true)
 			navigate("/booking-success", { state: { message: confirmationCode } })
 		} catch (error) {
@@ -236,7 +241,7 @@ const currentUser = localStorage.getItem("userId")
 						</div>
 					</div>
 
-					<div className="col-md-4">
+					<div className="col-md-6">
 						{isSubmitted && (
 							<BookingSummary
 								booking={booking}
